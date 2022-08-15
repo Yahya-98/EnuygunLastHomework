@@ -1,0 +1,6 @@
+url : https://www.enuygun.com/ucak-bileti/
+departureDay : "10"
+returnDay : "5"
+isDirect : "True"
+origin : "istanbul"
+destination : "mardin"
