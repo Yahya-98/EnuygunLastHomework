@@ -5,6 +5,7 @@ import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class DriverChrome extends DriverSetup{
         options.addArguments("start-maximized"); // start chrome maximized
         options.setExperimentalOption("excludeSwitches", "disable-popup-blocking");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); //removes the banner
+
 
         //this line created the chromedriver
         try{

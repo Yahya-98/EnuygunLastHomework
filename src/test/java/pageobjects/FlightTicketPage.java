@@ -30,7 +30,7 @@ public class FlightTicketPage {
 
     public FlightTicketPage(DriverSetup driver){
 
-        this.driver =driver;
+        this.driver = driver;
         data = ConfigReader.dataProperties();
 
     }
@@ -38,6 +38,7 @@ public class FlightTicketPage {
 
 
     public void flightTicket(){
+
         driver.element().findElement(origin).sendKeys(String.valueOf(data.get("origin")));
         driver.element().findElement(originFirst).click();
         driver.element().findElement(destination).sendKeys(String.valueOf(data.get("destination")));

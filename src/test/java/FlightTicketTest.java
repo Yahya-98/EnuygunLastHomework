@@ -22,7 +22,7 @@ public class FlightTicketTest {
 
     }
     @Test
-    public void start(){
+    public void start()  {
         homePage.flightTicket();
         ticketpage.ticketselect();
 
