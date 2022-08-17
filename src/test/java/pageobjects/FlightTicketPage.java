@@ -1,5 +1,5 @@
-package pageobjects;
 
+package pageobjects;
 
 import org.openqa.selenium.By;
 import webdriverSetup.ConfigReader;
@@ -11,15 +11,15 @@ import java.util.Map;
 
 public class FlightTicketPage {
 
-
-
     DriverSetup driver;
 
     public static Map data;
 
-
-    By origin = By.id("OriginInput"); // nereden
-    By destination = By.id("DestinationInput"); //nereye
+    String ticketDate;
+    String ticketReturnDay;
+    By departureDay;
+    By origin = By.id("OriginInput");
+    By destination = By.id("DestinationInput");
     By isDirect = By.id("transitFilter");
     By originFirst = By.id("react-autowhatever-OriginInput-section-0-item-0"); // select the first origin
     By destinationFirst = By.id("react-autowhatever-DestinationInput-section-0-item-0"); // select the first destination
@@ -44,26 +44,35 @@ public class FlightTicketPage {
         driver.element().findElement(destination).sendKeys(String.valueOf(data.get("destination")));
         driver.element().findElement(destinationFirst).click();
         driver.element().findElement(originDateBar).click();
-        String ticketDate = datefinder(Integer.parseInt(String.valueOf(data.get("departureDay"))));
 
-        By departureDay = By.xpath("//td[@aria-label=\""+ ticketDate + "\"]");
-        if(String.valueOf(data.get("departureDay")).equals("1")){
-            By departureDay1 = By.xpath("//td[@aria-label=\""+ "Selected. " + ticketDate + "\"]");
-            driver.element().findElement(departureDay1).click();
-        }else{
-            driver.element().findElement(departureDay).click();
-        }
+        // datefinder find the departureday and if mounth not current or next month click the next mounth button for find the true month
+        ticketDate = datefinder(Integer.parseInt(String.valueOf(data.get("departureDay"))));
+        // if departure day tomorrow, calendar already selected day and xpath must add selected
+        departureDay = By.xpath("//td[@aria-label=\""+ isTomorrowCheck() + ticketDate + "\"]");
+
+        driver.element().findElement(departureDay).click();
         driver.element().findElement(returnDate).click();
-        String ticketReturnDay = datefinder(Integer.parseInt(String.valueOf(data.get("departureDay"))) + Integer.parseInt(String.valueOf(data.get("returnDay"))));
-        driver.element().findElement(returnDay(ticketReturnDay,ticketDate)).click();
-        if(String.valueOf(data.get("isDirect")).toLowerCase().equals("true")){driver.element().findElement(isDirect).click();} // if isdirect true select direct flight
+        // datefinder find the returnday and if mounth not current or next month click the next mounth button for find the true month
+        ticketReturnDay = datefinder(Integer.parseInt(String.valueOf(data.get("departureDay"))) + Integer.parseInt(String.valueOf(data.get("returnDay"))));
+        // if returnday and departure day same, calendar already clicked day, this function check it
+        driver.element().findElement(isReturnDaySameCheck(ticketReturnDay,ticketDate)).click();
+
+        if(String.valueOf(data.get("isDirect")).toLowerCase().equals("true")){
+            driver.element().findElement(isDirect).click();} // if isdirect true select direct flight
+
         driver.element().findElement(findTicketBtn).click();
-
-
-
     }
-    // if return day equals the departure day element changed this function check the element and fix it
-    private By returnDay(String ticketReturnDay, String  departureDay){
+
+    // if departure day tomorrow calendar selected this function check and fix xpath
+    public String isTomorrowCheck(){
+        if(String.valueOf(data.get("departureDay")).equals("1")){
+            return "Selected. ";
+        }else{
+            return "";
+        }
+    }
+    // if return day equals the departure day element changed, this function check the element and fix it
+    private By isReturnDaySameCheck(String ticketReturnDay, String  departureDay){
         if(ticketReturnDay.equals(departureDay)){
             return By.xpath("//td[@aria-label=\""+"Selected. " + ticketReturnDay + "\"]");
         }else{
@@ -72,14 +81,15 @@ public class FlightTicketPage {
 
     private String  datefinder (int addDay){
         DateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy");
-        Date date = new Date(new Date().getTime() + 86400000L * addDay); // one day 1000 * 60 * 60 * 24 = 86400000
-        String  ticketDate = dateFormat.format(date);
+        Date date = new Date(new Date().getTime() + 86400000L * addDay); // one day = 1000 * 60 * 60 * 24 = 86400000
+        String ticketDate = dateFormat.format(date);
 
         // this line check expected month next month or far
         DateFormat monthFormat = new SimpleDateFormat("MM");
         Date currentMonth = new Date();
+
         int currentMonthint = Integer.parseInt(monthFormat.format(currentMonth));
-        Date expectedMonth = new Date(new Date().getTime() + 86400000L * addDay); // one day 1000 * 60 * 60 * 24 = 86400000
+        Date expectedMonth = new Date(new Date().getTime() + 86400000L * addDay); // one day = 1000 * 60 * 60 * 24 = 86400000
         int expectedMonthint = Integer.parseInt(monthFormat.format(expectedMonth));
         // if ticket month not this mont or next month find the ticket month
         if ((expectedMonthint - currentMonthint) >= 2) {

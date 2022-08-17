@@ -1,7 +1,6 @@
 url : https://www.enuygun.com/ucak-bileti/
-departureDay : "5"
+departureDay : "0"
 returnDay : "16"
 isDirect : "True"
-origin : "trabzon"
-destination : "Amsterdam"
-provider : "thy"
+origin : "istanbul"
+destination : "berlin"

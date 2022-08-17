@@ -28,19 +28,21 @@ public class FlightTicketTest {
         Assert.assertNotEquals(driver.element().getCurrentUrl(),"https://www.enuygun.com/ucak-bileti/");
     }
     @Test(priority = 2)
-    public void retur(){
-        ticketpage.ticketselect();
-        //Assert.assertEquals();
+    public void retur()  {
+        ticketpage.setDepartureFly();
+
     }
 
     @Test(priority = 3)
-    public void s1(){
-        Assert.assertNotEquals(ticketpage.setReturnFly(),"true");
-    }
-    @Test(priority = 4)
+    public void s1() throws InterruptedException {
 
-    public void select(){
-        ticketpage.okbtn();
-        Assert.assertNotEquals(ticketpage.okbtn(),driver.element().getCurrentUrl());
+        Assert.assertNotEquals(ticketpage.setReturnFly(),"true");
+
+    }
+
+    @Test(priority = 4)
+    public void select() throws InterruptedException{
+        String url = ticketpage.selectFly();
+        Assert.assertNotEquals(driver.element().getCurrentUrl(),url);
     }
 }
