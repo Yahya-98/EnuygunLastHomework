@@ -28,7 +28,7 @@ public class DriverSetup  {
     }
 
     public WebDriverWait getWait(){
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait;
 
     }
