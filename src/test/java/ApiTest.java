@@ -34,7 +34,7 @@ public class ApiTest {
 
     @Test
     public void postPetIdTest() throws UnirestException {
-        Assert.assertEquals(api.apiPostRequest(),200);
+        Assert.assertEquals(api.apiPostRequest("newpetname","available"),200);
     }
     @Test
     public void deletePetTest(){

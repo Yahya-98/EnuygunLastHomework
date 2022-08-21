@@ -48,13 +48,11 @@ public class Api {
 
     }
 
-    public int apiPostRequest() throws UnirestException {
+    public int apiPostRequest(String petNewName, String petNewstatus ) throws UnirestException {
        //request availeble pet
         jp = getRequest("findByStatus?status=available").jsonPath();
         // find second available pet's id
         String id = String.valueOf(jp.getList("id").get(1));
-        String petNewName = faker.name().firstName();
-        String petNewstatus = "pending";
         // post id, newname and new status
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = Unirest.post(baseURI + id)
