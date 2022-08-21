@@ -1,4 +1,5 @@
 
+import com.github.javafaker.Faker;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -10,6 +11,7 @@ import static io.restassured.RestAssured.*;
 public class Api {
     Response response;
     JsonPath jp;
+    Faker faker;
 
    public Api(){
 
@@ -51,7 +53,7 @@ public class Api {
         jp = getRequest("findByStatus?status=available").jsonPath();
         // find second available pet's id
         String id = String.valueOf(jp.getList("id").get(1));
-        String petNewName = "newpetname";
+        String petNewName = faker.name().firstName();
         String petNewstatus = "pending";
         // post id, newname and new status
         Unirest.setTimeouts(0, 0);
