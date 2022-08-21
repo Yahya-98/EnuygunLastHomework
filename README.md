@@ -5,6 +5,8 @@ test/apiprjects  for api testcases
 
 test/pageobjects for flght ticked testcases
 
+Webdriver is ChromeDriver
+
 
 
 
