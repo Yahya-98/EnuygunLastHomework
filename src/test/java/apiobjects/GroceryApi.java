@@ -1,13 +1,13 @@
+package apiobjects;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 
 
 public class GroceryApi {
 
-    Response response;
     public GroceryApi(){
         baseURI = "https://95add92b-a97b-49f7-9896-b4b1517b682f.mock.pstmn.io//allGrocery/";
 

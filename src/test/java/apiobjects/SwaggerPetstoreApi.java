@@ -1,5 +1,5 @@
+package apiobjects;
 
-import com.github.javafaker.Faker;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -8,12 +8,11 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 
 
-public class Api {
+public class SwaggerPetstoreApi {
     Response response;
     JsonPath jp;
-    Faker faker;
 
-   public Api(){
+   public SwaggerPetstoreApi(){
 
        baseURI = "https://petstore.swagger.io/v2/pet/";
    }

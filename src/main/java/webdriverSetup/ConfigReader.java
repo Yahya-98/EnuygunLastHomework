@@ -13,7 +13,7 @@ public class ConfigReader {
 
         Yaml properties = new Yaml();
         try {
-            FileInputStream fileInputStream = new FileInputStream("./src/test/resources/config.yaml");
+            FileInputStream fileInputStream = new FileInputStream("./src/test/resources/flghtData.yaml");
             data = properties.load(fileInputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
